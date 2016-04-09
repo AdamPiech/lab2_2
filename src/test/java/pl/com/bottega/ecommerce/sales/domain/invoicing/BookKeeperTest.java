@@ -35,7 +35,7 @@ public class BookKeeperTest {
 	public void testSecond () {
 		InvoiceRequest invoiceRequest = mock.getInvoiceFactory();
 		Invoice invoice = bookKeeper.issuance(invoiceRequest , taxPolicy);
-        assertThat(invoice.getGros(), Matchers.isA(Money.class));//(new Money(new BigDecimal(1000), Currency.getInstance("PLN"))));
+        assertThat(invoice.getGros(), Matchers.is(new Money(new BigDecimal(1000), Currency.getInstance("PLN"))));
 	}
 	
 	@Test
