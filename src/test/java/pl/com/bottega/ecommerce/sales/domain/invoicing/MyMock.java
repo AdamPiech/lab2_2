@@ -11,22 +11,23 @@ import pl.com.bottega.ecommerce.sales.domain.productscatalog.ProductType;
 import pl.com.bottega.ecommerce.sharedkernel.Money;
 
 public class MyMock {
-	private static ProductData productData = new ProductData(Id.generate(),
-			new Money(new BigDecimal(1000), Currency.getInstance("PLN")), "Standard Product", ProductType.STANDARD, new Date());
 
-	static public TaxPolicy getTaxPolicy() {
+	private static Id id = Id.generate();
+
+	public static TaxPolicy getTaxPolicy() {
 		return new TaxPolicyMock();
 	}
 
-	static public ProductData getMockProductData() {
-		return productData;
+	public static ProductData getMockProductData() {
+		return new ProductData(id, new Money(new BigDecimal(1000), Currency.getInstance("EUR")), "Standard Product",
+				ProductType.STANDARD, new Date());
 	}
 
-	static public ClientData getMockClientData() {
-		return new ClientData(Id.generate(), "Client");
+	public static ClientData getMockClientData() {
+		return new ClientData(id, "Client");
 	}
 
-	static public InvoiceRequest getInvoiceFactory() {
+	public static InvoiceRequest getInvoiceFactory() {
 		InvoiceRequest request = new InvoiceRequest(getMockClientData());
 		request.add(new RequestItem(getMockProductData(), 100, new Money(new BigDecimal(1000))));
 		return request;
@@ -34,7 +35,8 @@ public class MyMock {
 }
 
 class TaxPolicyMock implements TaxPolicy {
+
 	public Tax calculateTax(ProductType productType, Money net) {
-		return new Tax(new Money(new BigDecimal(1000), Currency.getInstance("PLN")), "Tax Test");
+		return new Tax(new Money(new BigDecimal(1000), Currency.getInstance("EUR")), "Tax Test");
 	}
 }
